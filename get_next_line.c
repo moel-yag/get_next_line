@@ -59,9 +59,23 @@ char	*ft_freeline(char *str)
 	return (line);
 }
 
+char	*ft_strlcpy(char *dst, const char *src, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < size - 1 && src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
+
 char	*get_next_line(int fd)
 {
-	static char	*str = NULL;
+	static char	*str;
 	char		*buf;
 	char		*line;
 
