@@ -21,7 +21,7 @@
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *s);
-void    ft_bzero(void *s, size_t n);        
+void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t n, size_t size);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
