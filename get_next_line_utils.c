@@ -22,6 +22,29 @@ size_t    ft_strlen(const char *s)
     return (i);
 }
 
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < n)
+	{
+		((char *)s)[i] = '\0';
+		i++;
+	}
+}
+
+void	*ft_calloc(size_t n, size_t size)
+{
+	void	*ptr;
+
+	ptr = malloc(n * size);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, n * size);
+	return (ptr);
+}
+
 char    *ft_strjoin(char const *s1, char const *s2)
 {
 	size_t    len1;
@@ -49,31 +72,4 @@ char    *ft_substr(char const *s, unsigned int start, size_t len)
         return (NULL);
     ft_strlcpy(sub, s + start, len + 1);
     return (sub);
-}
-
-char    *ft_strchr(const char *s, int c)
-{
-	while (*s)
-    {
-        if (*s == (char)c)
-            return ((char *)s);
-        s++;
-    }
-    if (*s == (char)c)
-        return ((char *)s);
-    return (NULL);
-}
-
-char    *ft_strlcpy(char *dst, const char *src, size_t size)
-{
-	size_t    i;
-
-    i = 0;
-    while (i < size - 1 && src[i])
-    {
-        dst[i] = src[i];
-        i++;
-    }
-    dst[i] = '\0';
-    return (dst);
 }
