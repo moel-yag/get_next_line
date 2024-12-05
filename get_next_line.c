@@ -12,33 +12,80 @@
 
 #include "get_next_line.h"
 
+char	*ft_strchr(const char *s, int c)
+{
+	while (*s)
+	{
+		if (*s == (char)c)
+			return ((char *)s);
+		s++;
+	}
+	if (*s == (char)c)
+		return ((char *)s);
+	return (NULL);
+}
+
+char	*ft_readfile(int fd, char *str, char *buf)
+{
+	int		ret;
+	char	*temp;
+
+	ret = 1;
+	while (ret > 0 &&!ft_strchr(str, '\n'))
+	{
+		ret = read(fd, buf, BUFFER_SIZE);
+		buf[ret] = '\0';
+		temp = ft_strjoin(str, buf);
+		free(str);
+		str = temp;
+	}
+	return (str);
+}
+
+char	*ft_freeline(char *str)
+{
+	char	*line;
+	int		i;
+
+	i = 0;
+	while (str[i] && str[i] != '\n')
+		i++;
+	line = ft_substr(str, 0, i);
+	if (str[i])
+		str = ft_substr(str, i + 1, ft_strlen(str) - i);
+	else
+		str = ft_calloc(1, sizeof(char));
+	free(str);
+	return (line);
+}
+
+char	*ft_strlcpy(char *dst, const char *src, size_t size)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < size - 1 && src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
+}
+
 char	*get_next_line(int fd)
 {
-	char		buf[BUFFER_SIZE + 1];
-	static char	*line;
-	char		*temp;
-	int			read_size;
+	static char	*str;
+	char		*buf;
+	char		*line;
 
-	line = ft_calloc(1, sizeof(char));
-	read_size = read(fd, buf, BUFFER_SIZE);
-	while (read_size > 0)
-	{
-		buf[read_size] = '\0';
-		temp = ft_strjoin(line, buf);
-		free(line);
-		line = temp;
-		if (ft_strchr(line, '\n'))
-			break ;
-	}
-	if (read_size < 0)
+	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (read_size == 0 && ft_strlen(line) == 0)
+	str = ft_readfile(fd, str, buf);
+	free(buf);
+	if (!str)
 		return (NULL);
-	temp = ft_strchr(line, '\n');
-	if (temp)
-	{
-		*temp = '\0';
-		temp++;
-	}
+	line = ft_freeline(str);
 	return (line);
 }
