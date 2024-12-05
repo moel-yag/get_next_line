@@ -12,68 +12,66 @@
 
 #include "get_next_line.h"
 
-size_t    ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-    size_t    i;
+	size_t	i;
 
-    i = 0;
-    while (s[i])
-        i++;
-    return (i);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
 
-char    *ft_strjoin(char const *s1, char const *s2)
+void	*ft_calloc(size_t n, size_t size)
 {
-	size_t    len1;
-    size_t    len2;
-    char    *str;
+	void	*ptr;
 
-    len1 = ft_strlen(s1);
-    len2 = ft_strlen(s2);
-    str = malloc((len1 + len2 + 1) * sizeof(char));
-    if (!str)
-        return (NULL);
-    ft_strlcpy(str, s1, len1 + 1);
-    ft_strlcpy(str + len1, s2, len2 + 1);
-    return (str);
+	ptr = malloc(n * size);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, n * size);
+	return (ptr);
 }
 
-char    *ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	char    *sub;
+	size_t	len1;
+	size_t	len2;
+	char	*str;
 
-    if (!s)
-        return (NULL);
-    sub = malloc((len + 1) * sizeof(char));
-    if (!sub)
-        return (NULL);
-    ft_strlcpy(sub, s + start, len + 1);
-    return (sub);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	str = malloc((len1 + len2 + 1) * sizeof(char));
+	if (!str)
+		return (NULL);
+	ft_strlcpy(str, s1, len1 + 1);
+	ft_strlcpy(str + len1, s2, len2 + 1);
+	return (str);
 }
 
-char    *ft_strchr(const char *s, int c)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	while (*s)
-    {
-        if (*s == (char)c)
-            return ((char *)s);
-        s++;
-    }
-    if (*s == (char)c)
-        return ((char *)s);
-    return (NULL);
+	char	*sub;
+
+	if (!s)
+		return (NULL);
+	sub = malloc((len + 1) * sizeof(char));
+	if (!sub)
+		return (NULL);
+	ft_strlcpy(sub, s + start, len + 1);
+	return (sub);
 }
 
-char    *ft_strlcpy(char *dst, const char *src, size_t size)
+char	*ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	size_t    i;
+	size_t	i;
 
-    i = 0;
-    while (i < size - 1 && src[i])
-    {
-        dst[i] = src[i];
-        i++;
-    }
-    dst[i] = '\0';
-    return (dst);
+	i = 0;
+	while (i < size - 1 && src[i])
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (dst);
 }
