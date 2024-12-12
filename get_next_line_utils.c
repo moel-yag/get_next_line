@@ -22,54 +22,97 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-void	ft_bzero(void *s, size_t n)
+char	*ft_strdup(const char *src)
 {
-	size_t	i;
+	int		i;
+	char	*dest;
 
 	i = 0;
-	while (i < n)
+	while (src[i])
+		i++;
+	dest = malloc((sizeof(char) * i) + 1);
+	if (!dest)
+		return (NULL);
+	i = 0;
+	while (src[i])
 	{
-		((char *)s)[i] = '\0';
+		dest[i] = src[i];
 		i++;
 	}
+	dest[i] = '\0';
+	return (dest);
 }
 
-void	*ft_calloc(size_t n, size_t size)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	void	*ptr;
+	size_t	len;
+	size_t	i;
 
-	ptr = malloc(n * size);
-	if (!ptr)
-		return (NULL);
-	ft_bzero(ptr, n * size);
-	return (ptr);
+	len = ft_strlen(src);
+	if (!dst && size == 0)
+		return (len);
+	i = 0;
+	if (size > 0)
+	{
+		while (src[i] && i < size - 1)
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	return (len);
 }
 
 char	*ft_strjoin(char const *s1, char const *s2)
 {
-	size_t	len1;
-	size_t	len2;
-	char	*str;
+	size_t	i;
+	size_t	j;
+	char	*copy;
 
-	len1 = ft_strlen(s1);
-	len2 = ft_strlen(s2);
-	str = malloc((len1 + len2 + 1) * sizeof(char));
-	if (!str)
+	if (!s1 || !s2)
 		return (NULL);
-	ft_strlcpy(str, s1, len1 + 1);
-	ft_strlcpy(str + len1, s2, len2 + 1);
-	return (str);
+	copy = malloc((ft_strlen(s1) + ft_strlen(s2)) * sizeof(char) + 1);
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (i < ft_strlen(s1))
+	{
+		copy[i] = s1[i];
+		i++;
+	}
+	j = 0;
+	while (j < ft_strlen(s2))
+	{
+		copy[i + j] = s2[j];
+		j++;
+	}
+	copy[i + j] = '\0';
+	return (copy);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*sub;
+	unsigned int	slen;
+	unsigned int	i;
+	char			*str;
 
 	if (!s)
 		return (NULL);
-	sub = malloc((len + 1) * sizeof(char));
-	if (!sub)
+	slen = ft_strlen(s);
+	if (start >= slen)
+		return (ft_strdup(""));
+	if (start + len > slen)
+		len = slen - start;
+	str = malloc((len + 1) * sizeof(char));
+	if (!str)
 		return (NULL);
-	ft_strlcpy(sub, s + start, len + 1);
-	return (sub);
+	i = 0;
+	while (i < len)
+	{
+		str[i] = s[start + i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
 }
