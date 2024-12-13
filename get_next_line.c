@@ -16,6 +16,8 @@ char	*ft_strchr(const char *s, int c)
 {
 	int	i;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	while ((char)c != s[i])
 	{
@@ -33,6 +35,8 @@ char	*ft_freeline(char **str)
 	int		i;
 
 	i = 0;
+	if (*str[0] == '\0')
+		return (NULL);
 	while ((*str)[i] && (*str)[i] != '\n')
 		i++;
 	line = ft_substr(*str, 0, i);
@@ -47,6 +51,7 @@ char	*ft_freeline(char **str)
 		free(*str);
 		*str = NULL;
 	}
+	line = ft_strjoin(line, "\n");
 	return (line);
 }
 
@@ -70,7 +75,6 @@ char	*ft_readfile(int fd, char *str, char *buf)
 			break ;
 		buf[ret] = '\0';
 		temp = ft_strjoin(str, buf);
-		free(str);
 		if (!temp)
 			return (NULL);
 		str = temp;
@@ -87,6 +91,8 @@ char	*get_next_line(int fd)
 	if (!str)
 		str = NULL;
 	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buf)
+		return (NULL);
 	if (fd < 0 || BUFFER_SIZE <= 0 || !buf)
 		return (NULL);
 	str = ft_readfile(fd, str, buf);
