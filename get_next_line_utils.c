@@ -27,6 +27,8 @@ char	*ft_strdup(const char *src)
 	int		i;
 	char	*dest;
 
+	if (!src)
+		return (NULL);
 	i = 0;
 	while (src[i])
 		i++;
@@ -48,6 +50,8 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 	size_t	len;
 	size_t	i;
 
+	if (!src)
+		return (0);
 	len = ft_strlen(src);
 	if (!dst && size == 0)
 		return (len);
@@ -88,6 +92,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		j++;
 	}
 	copy[i + j] = '\0';
+	free((void *)s1);
+	s1 = NULL;
 	return (copy);
 }
 

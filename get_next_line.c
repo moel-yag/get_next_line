@@ -16,6 +16,8 @@ char	*ft_strchr(const char *s, int c)
 {
 	int	i;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	while ((char)c != s[i])
 	{
@@ -26,16 +28,26 @@ char	*ft_strchr(const char *s, int c)
 	return ((char *)&s[i]);
 }
 
+size_t	ft_findchr(const char *str, char c)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i] && str[i] != c)
+		i++;
+	return (i);
+}
+
 char	*ft_freeline(char **str)
 {
 	char	*line;
 	char	*temp;
 	int		i;
 
-	i = 0;
-	while ((*str)[i] && (*str)[i] != '\n')
-		i++;
-	line = ft_substr(*str, 0, i);
+	if (*str[0] == '\0')
+		return (NULL);
+	i = ft_findchr(*str, '\n');
+	line = ft_substr(*str, 0, i + 1);
 	if ((*str)[i])
 	{
 		temp = ft_substr(*str, i + 1, ft_strlen(*str) - i - 1);
@@ -56,8 +68,6 @@ char	*ft_readfile(int fd, char *str, char *buf)
 	char	*temp;
 
 	ret = 1;
-	if (!str)
-		str = ft_strdup("");
 	while (ret > 0 && !ft_strchr(str, '\n'))
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
@@ -69,10 +79,10 @@ char	*ft_readfile(int fd, char *str, char *buf)
 		if (ret == 0)
 			break ;
 		buf[ret] = '\0';
-		temp = ft_strjoin(str, buf);
-		free(str);
-		if (!temp)
-			return (NULL);
+		if (!str)
+			temp = ft_strdup(buf);
+		else
+			temp = ft_strjoin(str, buf);
 		str = temp;
 	}
 	return (str);
@@ -84,9 +94,11 @@ char	*get_next_line(int fd)
 	char		*buf;
 	char		*line;
 
-	if (!str)
-		str = NULL;
-	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	// if (!str)
+	// 	str = NULL;
+	buf = malloc((size_t)(BUFFER_SIZE + 1) * sizeof(char));
+	if (!buf)
+		return (NULL);
 	if (fd < 0 || BUFFER_SIZE <= 0 || !buf)
 		return (NULL);
 	str = ft_readfile(fd, str, buf);
