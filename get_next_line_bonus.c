@@ -6,12 +6,12 @@
 /*   By: moel-yag <moel-yag@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 11:36:52 by moel-yag          #+#    #+#             */
-/*   Updated: 2024/12/14 11:39:37 by moel-yag         ###   ########.fr       */
+/*   Updated: 2024/12/14 11:43:44 by moel-yag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -102,10 +102,10 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (fd < 0 || BUFFER_SIZE <= 0 || !buf)
 		return (NULL);
-	str[fd] = ft_readfile(fd, str, buf);
+	str[fd] = ft_readfile(fd, str[fd], buf);
 	free(buf);
 	if (!str[fd])
 		return (NULL);
-	line = ft_freeline(&str);
+	line = ft_freeline(&str[fd]);
 	return (line);
 }
