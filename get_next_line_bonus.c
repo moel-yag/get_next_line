@@ -6,10 +6,9 @@
 /*   By: moel-yag <moel-yag@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 11:36:52 by moel-yag          #+#    #+#             */
-/*   Updated: 2024/12/14 11:43:44 by moel-yag         ###   ########.fr       */
+/*   Updated: 2024/12/14 11:50:21 by moel-yag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "get_next_line_bonus.h"
 
@@ -95,8 +94,6 @@ char	*get_next_line(int fd)
 	char		*buf;
 	char		*line;
 
-	// if (!str)
-	// 	str = NULL;
 	buf = malloc((size_t)(BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
 		return (NULL);
