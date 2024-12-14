@@ -6,7 +6,7 @@
 /*   By: moel-yag <moel-yag@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 11:36:52 by moel-yag          #+#    #+#             */
-/*   Updated: 2024/12/14 15:03:13 by moel-yag         ###   ########.fr       */
+/*   Updated: 2024/12/14 16:43:20 by moel-yag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,10 @@ char	*get_next_line(int fd)
 	char		*buf;
 	char		*line;
 
-	buf = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buf)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (fd < 0 || BUFFER_SIZE <= 0 || !buf)
+	buf = malloc(((size_t)BUFFER_SIZE + 1) * sizeof(char));
+	if (!buf)
 		return (NULL);
 	str[fd] = ft_readfile(fd, str[fd], buf);
 	free(buf);
