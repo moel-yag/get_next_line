@@ -6,7 +6,7 @@
 /*   By: moel-yag <moel-yag@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 20:47:21 by moel-yag          #+#    #+#             */
-/*   Updated: 2024/12/14 17:02:20 by moel-yag         ###   ########.fr       */
+/*   Updated: 2024/12/15 10:18:22 by moel-yag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[i])
 		i++;
@@ -74,26 +76,20 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	j;
 	char	*copy;
 
-	if (!s1 || !s2)
-		return (NULL);
 	copy = malloc((ft_strlen(s1) + ft_strlen(s2)) * sizeof(char) + 1);
 	if (!copy)
+	{
+		free((void *)s1);
 		return (NULL);
-	i = 0;
-	while (i < ft_strlen(s1))
-	{
-		copy[i] = s1[i];
-		i++;
 	}
-	j = 0;
-	while (j < ft_strlen(s2))
-	{
-		copy[i + j] = s2[j];
-		j++;
-	}
+	i = ft_strlen(s1);
+	j = ft_strlen(s2);
 	copy[i + j] = '\0';
+	while (j--)
+		copy[i + j] = s2[j];
+	while (i--)
+		copy[i] = s1[i];
 	free((void *)s1);
-	s1 = NULL;
 	return (copy);
 }
 
