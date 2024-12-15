@@ -6,7 +6,7 @@
 /*   By: moel-yag <moel-yag@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 11:36:52 by moel-yag          #+#    #+#             */
-/*   Updated: 2024/12/14 16:43:20 by moel-yag         ###   ########.fr       */
+/*   Updated: 2024/12/15 10:26:21 by moel-yag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,28 @@ char	*ft_freeline(char **str)
 	int		i;
 
 	if (*str[0] == '\0')
+	{
+		free(*str);
 		return (NULL);
+	}
 	i = ft_findchr(*str, '\n');
 	line = ft_substr(*str, 0, i + 1);
-	if ((*str)[i])
+	if ((*str)[i] && line)
 	{
 		temp = ft_substr(*str, i + 1, ft_strlen(*str) - i - 1);
-		free(*str);
-		*str = temp;
+		if (!temp)
+			line = NULL;
 	}
 	else
-	{
-		free(*str);
-		*str = NULL;
-	}
+		temp = NULL;
+	free(*str);
+	*str = temp;
 	return (line);
 }
 
 char	*ft_readfile(int fd, char *str, char *buf)
 {
 	int		ret;
-	char	*temp;
 
 	ret = 1;
 	while (ret > 0 && !ft_strchr(str, '\n'))
@@ -79,11 +80,7 @@ char	*ft_readfile(int fd, char *str, char *buf)
 		if (ret == 0)
 			break ;
 		buf[ret] = '\0';
-		if (!str)
-			temp = ft_strdup(buf);
-		else
-			temp = ft_strjoin(str, buf);
-		str = temp;
+		str = ft_strjoin(str, buf);
 	}
 	return (str);
 }
