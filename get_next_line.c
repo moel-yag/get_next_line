@@ -47,7 +47,7 @@ char	*ft_freeline(char **str)
 	if (*str[0] == '\0')
 	{
 		free(*str);
-		return (NULL);
+		return (*str = NULL);
 	}
 	i = ft_findchr(*str, '\n');
 	line = ft_substr(*str, 0, i + 1);
@@ -55,7 +55,10 @@ char	*ft_freeline(char **str)
 	{
 		temp = ft_substr(*str, i + 1, ft_strlen(*str) - i - 1);
 		if (!temp)
+		{
+			free(line);
 			line = NULL;
+		}
 	}
 	else
 		temp = NULL;
@@ -91,11 +94,17 @@ char	*get_next_line(int fd)
 	char		*buf;
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= 1024)
-		return (NULL);
+	if (fd < 0 || BUFFER_SIZE <= 0)
+	{
+		free(str);
+		return (str = NULL);
+	}
 	buf = malloc(((size_t)BUFFER_SIZE + 1) * sizeof(char));
 	if (!buf)
-		return (NULL);
+	{
+		free(str);
+		return (str = NULL);
+	}
 	str = ft_readfile(fd, str, buf);
 	free(buf);
 	if (!str)
