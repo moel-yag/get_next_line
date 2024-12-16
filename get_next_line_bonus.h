@@ -6,7 +6,7 @@
 /*   By: moel-yag <moel-yag@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 20:47:07 by moel-yag          #+#    #+#             */
-/*   Updated: 2024/12/15 10:17:28 by moel-yag         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:53:52 by moel-yag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <limits.h>
 
-# ifndef GET_NEXT_LINE
+# ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
 # endif
 

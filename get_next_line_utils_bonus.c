@@ -6,11 +6,11 @@
 /*   By: moel-yag <moel-yag@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 20:47:21 by moel-yag          #+#    #+#             */
-/*   Updated: 2024/12/15 10:48:53 by moel-yag         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:55:17 by moel-yag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t	ft_strlen(const char *s)
 {
