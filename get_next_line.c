@@ -94,12 +94,10 @@ char	*get_next_line(int fd)
 	char		*buf;
 	char		*line;
 
-	// if (!str)
-	// 	str = NULL;
-	buf = malloc((size_t)(BUFFER_SIZE + 1) * sizeof(char));
-	if (!buf)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (fd < 0 || BUFFER_SIZE <= 0 || !buf)
+	buf = malloc(((size_t)BUFFER_SIZE + 1) * sizeof(char));
+	if (!buf)
 		return (NULL);
 	str = ft_readfile(fd, str, buf);
 	free(buf);

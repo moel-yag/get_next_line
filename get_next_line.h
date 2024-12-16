@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# ifndef GET_NEXT_LINE
+# ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
 # endif
 
