@@ -6,7 +6,7 @@
 /*   By: moel-yag <moel-yag@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/14 11:36:52 by moel-yag          #+#    #+#             */
-/*   Updated: 2024/12/19 16:51:26 by moel-yag         ###   ########.fr       */
+/*   Updated: 2024/12/15 21:12:16 by moel-yag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,14 @@ char	*ft_strchr(const char *s, int c)
 	return ((char *)&s[i]);
 }
 
-ssize_t	ft_index_nl(const char *str)
+size_t	ft_findchr(const char *str, char c)
 {
-	ssize_t	i;
+	size_t	i;
 
 	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\n')
-			return (i);
+	while (str[i] && str[i] != c)
 		i++;
-	}
-	return (-1);
+	return (i);
 }
 
 char	*ft_freeline(char **str)
@@ -53,9 +49,9 @@ char	*ft_freeline(char **str)
 		free(*str);
 		return (*str = NULL);
 	}
-	i = ft_index_nl(*str);
+	i = ft_findchr(*str, '\n');
 	line = ft_substr(*str, 0, i + 1);
-	if (i < 0 && line != NULL)
+	if ((*str)[i] && line)
 	{
 		temp = ft_substr(*str, i + 1, ft_strlen(*str) - i - 1);
 		if (!temp)
@@ -73,7 +69,7 @@ char	*ft_freeline(char **str)
 
 char	*ft_readfile(int fd, char *str, char *buf)
 {
-	int	ret;
+	int		ret;
 
 	ret = 1;
 	while (ret > 0 && !ft_strchr(str, '\n'))

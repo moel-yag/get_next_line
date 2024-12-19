@@ -28,18 +28,14 @@ char	*ft_strchr(const char *s, int c)
 	return ((char *)&s[i]);
 }
 
-ssize_t	ft_index_nl(const char *str)
+size_t	ft_findchr(const char *str, char c)
 {
-	ssize_t	i;
+	size_t	i;
 
 	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\n')
-			return (i);
+	while (str[i] && str[i] != c)
 		i++;
-	}
-	return (-1);
+	return (i);
 }
 
 char	*ft_freeline(char **str)
@@ -53,9 +49,9 @@ char	*ft_freeline(char **str)
 		free(*str);
 		return (*str = NULL);
 	}
-	i = ft_index_nl(*str);
+	i = ft_findchr(*str, '\n');
 	line = ft_substr(*str, 0, i + 1);
-	if (i < 0 && line != NULL)
+	if ((*str)[i] && line)
 	{
 		temp = ft_substr(*str, i + 1, ft_strlen(*str) - i - 1);
 		if (!temp)
