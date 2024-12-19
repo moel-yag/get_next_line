@@ -6,7 +6,7 @@
 /*   By: moel-yag <moel-yag@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 20:47:21 by moel-yag          #+#    #+#             */
-/*   Updated: 2024/12/15 10:18:22 by moel-yag         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:32:12 by moel-yag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ size_t	ft_strlen(const char *s)
 
 char	*ft_strdup(const char *src)
 {
-	int		i;
+	size_t	i;
 	char	*dest;
 
 	if (!src)
@@ -95,7 +95,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	unsigned int	slen;
+	size_t			slen;
 	unsigned int	i;
 	char			*str;
 

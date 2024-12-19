@@ -6,7 +6,7 @@
 /*   By: moel-yag <moel-yag@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 20:46:53 by moel-yag          #+#    #+#             */
-/*   Updated: 2024/12/19 16:51:37 by moel-yag         ###   ########.fr       */
+/*   Updated: 2024/12/19 17:31:14 by moel-yag         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ft_strchr(const char *s, int c)
 {
-	int	i;
+	size_t	i;
 
 	if (!s)
 		return (NULL);
@@ -42,7 +42,7 @@ char	*ft_freeline(char **str)
 {
 	char	*line;
 	char	*temp;
-	int		i;
+	size_t	i;
 
 	if (*str[0] == '\0')
 	{
@@ -69,7 +69,7 @@ char	*ft_freeline(char **str)
 
 char	*ft_readfile(int fd, char *str, char *buf)
 {
-	int	ret;
+	ssize_t	ret;
 
 	ret = 1;
 	while (ret > 0 && !ft_strchr(str, '\n'))
